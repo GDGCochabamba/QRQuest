@@ -75,7 +75,7 @@ const Unlocked = () => {
           <svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true">
             <polygon points={STAR} fill="#2A0B20" />
           </svg>
-          NEW BADGE
+          ¡NUEVA INSIGNIA!
         </div>
 
         {/* Badge */}
@@ -84,7 +84,7 @@ const Unlocked = () => {
             height="260"
             viewBox="0 0 260 260"
             role="img"
-            aria-label={`${badge.title} badge`}
+            aria-label={`Insignia ${badge.title}`}
             style={{ marginTop: 20 }}
             >
             <polygon points="130,6 237.4,68 237.4,192 130,254 22.6,192 22.6,68" fill="none" stroke={ringColor} strokeWidth="2" opacity="0.18" />
@@ -110,7 +110,7 @@ const Unlocked = () => {
           {badge.name}
         </div>
         <div style={{ marginTop: 6, padding: "0 24px", fontSize: 15, fontWeight: 600, color: "#C9BBEE" }}>
-          You found the hidden code by the reading room.
+          Encontraste el código escondido junto a la sala de lectura.
         </div>
 
         {/* Points pill */}
@@ -138,12 +138,12 @@ const Unlocked = () => {
         >
           <Fox width={60} height={66} happy />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ ...fredoka, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>6 of 9 badges</div>
+            <div style={{ ...fredoka, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>6 de 9 insignias</div>
             <div style={{ display: (scannedBadges.length == 9) ? "none" : "block", fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 2 }}>
-              Only { 9 - scannedBadges.length} left. You are on a roll!
+              Solo quedan { 9 - scannedBadges.length }. ¡Vas en racha!
             </div>
             <div style={{ display: (scannedBadges.length == 9) ? "block" : "none", fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 2 }}>
-              Congratulations u found'em all
+              ¡Felicidades, los encontraste todos!
             </div>
             <div style={{ marginTop: 10, height: 10, borderRadius: 999, background: "#1A1033", overflow: "hidden" }}>
               <div style={{ width: "67%", height: "100%", borderRadius: 999, background: ACCENT }} />
@@ -157,13 +157,13 @@ const Unlocked = () => {
             onClick={() => navigate("/scan")}
             style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "#2A0B20", ...fredoka, fontSize: 18, fontWeight: 600 }}
           >
-            Scan the next code
+            Escanear el siguiente código
           </button>
           <button
             onClick={() => navigate("/home")}
             style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid #3A2A70", background: "none", color: "#DCCFFF", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
           >
-            View my collection
+            Ver mi colección
           </button>
         </div>
       </div>

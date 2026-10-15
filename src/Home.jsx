@@ -15,15 +15,15 @@ const ACCENT = "#FF8CC0";
 // "id" must match the text stored in each QR code (and saved in the Badges array)
 
 const BADGES = [
-  { id: "first_scan", name: "First Scan", palette: "pink", glyph: "star" },
-  { id: "early_bird", name: "Early Bird", palette: "amber", glyph: "circle" },
-  { id: "cafeteria", name: "Cafeteria", palette: "blue", glyph: "square" },
-  { id: "night_owl", name: "Night Owl", palette: "violet", glyph: "diamond" },
-  { id: "campus_run", name: "Campus Run", palette: "mint", glyph: "triangle" },
-  { id: "library", name: "Library", palette: "pink", glyph: "square" },
-  { id: "garden", name: "Garden", palette: "mint", glyph: "circle" },
-  { id: "rooftop", name: "Rooftop", palette: "blue", glyph: "diamond" },
-  { id: "secret", name: "Secret", palette: "amber", glyph: "star" },
+  { id: "first_scan", name: "Primer escaneo", palette: "pink", glyph: "star" },
+  { id: "early_bird", name: "Madrugador", palette: "amber", glyph: "circle" },
+  { id: "cafeteria", name: "Cafetería", palette: "blue", glyph: "square" },
+  { id: "night_owl", name: "Búho nocturno", palette: "violet", glyph: "diamond" },
+  { id: "campus_run", name: "Carrera del campus", palette: "mint", glyph: "triangle" },
+  { id: "library", name: "Biblioteca", palette: "pink", glyph: "square" },
+  { id: "garden", name: "Jardín", palette: "mint", glyph: "circle" },
+  { id: "rooftop", name: "Azotea", palette: "blue", glyph: "diamond" },
+  { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
 ];
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
@@ -135,8 +135,8 @@ const Home = () => {
         {/* Header */}
         <div style={{ padding: "28px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Welcome back</div>
-            <div style={{ ...fredoka, fontSize: 26, fontWeight: 600, lineHeight: 1.2 }}>Hi, {username}!</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Bienvenido de nuevo</div>
+            <div style={{ ...fredoka, fontSize: 26, fontWeight: 600, lineHeight: 1.2 }}>¡Hola, {username}!</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#2A1D57", borderRadius: 999, padding: "8px 14px" }}>
             <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true">
@@ -156,12 +156,12 @@ const Home = () => {
           <Fox />
           <div style={{ position: "relative", flex: 1, minWidth: 0 }}>
             <div style={{ ...fredoka, fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>
-              {count} of {total} badges
+              {count} de {total} insignias
             </div>
             <div style={{ fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 4, lineHeight: 1.35 }}>
               {remaining > 0
-                ? `${remaining} more QR ${remaining === 1 ? "code is" : "codes are"} hiding around campus.`
-                : "You found them all!"}
+                ? `${remaining} ${remaining === 1 ? "código QR más está escondido" : "códigos QR más están escondidos"} por el campus.`
+                : "¡Los encontraste todos!"}
             </div>
             <div style={{ marginTop: 12, height: 10, borderRadius: 999, background: "#1A1033", overflow: "hidden" }}>
               <div style={{ width: `${percent}%`, height: "100%", borderRadius: 999, background: ACCENT, transition: "width 0.4s" }} />
@@ -171,8 +171,8 @@ const Home = () => {
 
         {/* Badges title */}
         <div style={{ margin: "22px 20px 12px", display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-          <div style={{ ...fredoka, fontSize: 20, fontWeight: 600 }}>Your badges</div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Tap a badge for details</div>
+          <div style={{ ...fredoka, fontSize: 20, fontWeight: 600 }}>Tus insignias</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Toca una insignia para ver detalles</div>
         </div>
 
         {/* Badge grid */}
@@ -192,7 +192,7 @@ const Home = () => {
 
         <div style={{ textAlign: "center", marginTop: 24 }}>
           <button onClick={handleLogout} style={{ ...resetButton, color: "#A99BD0", fontSize: 13, fontWeight: 700 }}>
-            Log out
+            Cerrar sesión
           </button>
         </div>
       </div>
@@ -204,12 +204,12 @@ const Home = () => {
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
               <polygon points="12,2.5 20,7 20,17 12,21.5 4,17 4,7" />
             </svg>
-            <span style={{ fontSize: 12, fontWeight: 800 }}>Badges</span>
+            <span style={{ fontSize: 12, fontWeight: 800 }}>Insignias</span>
           </button>
 
           <button
             onClick={() => navigate("/scan")}
-            aria-label="Scan a QR code"
+            aria-label="Escanear un código QR"
             style={{ ...resetButton, width: 68, height: 68, marginTop: -34, borderRadius: 24, background: ACCENT, border: "5px solid #130C26", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A0B20", boxSizing: "border-box" }}
           >
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" aria-hidden="true">
@@ -224,7 +224,7 @@ const Home = () => {
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 9h16v11H4zM2 5h20v4H2zM12 5v15" />
             </svg>
-            <span style={{ fontSize: 12, fontWeight: 800 }}>Rewards</span>
+            <span style={{ fontSize: 12, fontWeight: 800 }}>Recompensas</span>
           </button>
         </div>
       </div>
