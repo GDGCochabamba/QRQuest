@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
-import { FACE_POINTS, Glyph, PALETTES } from "./assets/assets";
+import { FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
 
 
 const ACCENT = "#FF8CC0";
@@ -57,32 +57,6 @@ const LockedGem = () => (
     />
     <rect x="39" y="48" width="22" height="17" rx="3" fill="#6F5FA0" />
     <path d="M43 48 v-6 a7 7 0 0 1 14 0 v6" stroke="#6F5FA0" strokeWidth="3.5" fill="none" />
-  </svg>
-);
-
-const Fox = () => (
-  <svg width="92" height="100" viewBox="0 0 120 130" aria-hidden="true" style={{ position: "relative", flexShrink: 0 }}>
-    <polygon points="20,10 46,36 16,50" fill="#E8602C" />
-    <polygon points="100,10 74,36 104,50" fill="#E8602C" />
-    <polygon points="24,22 40,36 22,44" fill="#FF8FB8" />
-    <polygon points="96,22 80,36 98,44" fill="#FF8FB8" />
-    <polygon points="60,68 16,50 46,36" fill="#FF8A4C" />
-    <polygon points="60,68 46,36 74,36" fill="#FF9F63" />
-    <polygon points="60,68 74,36 104,50" fill="#FF7A3D" />
-    <polygon points="60,68 104,50 100,84" fill="#F0672F" />
-    <polygon points="60,68 100,84 60,110" fill="#FFE6D2" />
-    <polygon points="60,68 60,110 20,84" fill="#FFD4B8" />
-    <polygon points="60,68 20,84 16,50" fill="#F26F36" />
-    <ellipse cx="42" cy="66" rx="6" ry="7.5" fill="#2A1550" />
-    <ellipse cx="78" cy="66" rx="6" ry="7.5" fill="#2A1550" />
-    <circle cx="44" cy="63" r="2" fill="#FFFFFF" />
-    <circle cx="80" cy="63" r="2" fill="#FFFFFF" />
-    <ellipse cx="30" cy="84" rx="5" ry="3" fill="#FF8FB8" opacity="0.7" />
-    <ellipse cx="90" cy="84" rx="5" ry="3" fill="#FF8FB8" opacity="0.7" />
-    <polygon points="53,86 67,86 60,95" fill="#2A1550" />
-    <path d="M52 98 Q60 104 68 98" stroke="#2A1550" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-    <polygon points="34,108 86,108 60,128" fill="#FF5FA2" />
-    <polygon points="60,108 86,108 60,128" fill="#E8478F" />
   </svg>
 );
 
@@ -142,7 +116,7 @@ const Home = () => {
             <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true">
               <polygon points="50,6 63,36 95,38 70,59 78,92 50,74 22,92 30,59 5,38 37,36" fill="#FFB938" />
             </svg>
-            <span style={{ ...fredoka, fontSize: 16, fontWeight: 600 }}>{ earned.length * 10 } pts</span>
+            <span style={{ ...fredoka, fontSize: 16, fontWeight: 600 }}>{earned.length * 10} pts</span>
           </div>
         </div>
 

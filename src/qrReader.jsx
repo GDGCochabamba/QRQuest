@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ACCENT, Fox } from "./Home";
+import { ACCENT, Fox } from "./assets/assets";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 
