@@ -2,7 +2,8 @@
 :root {
   /* Surfaces */
   --color-bg: #130C26;
-  --color-bg-overlay: rgba(19, 12, 38, 0.55); /* tint over BG.png */
+  --color-bg-overlay: rgba(19, 12, 38, 0.55);
+  /* tint over BG.png */
   --color-surface: #2A1D57;
   --color-surface-deep: #1A1033;
   --color-card: #3A2478;
@@ -15,13 +16,13 @@
   --color-text: #F5EEFF;
   --color-text-soft: #DCCFFF;
   --color-text-muted: #C9BBEE;
-  --color-text-dim: #A99BD0;
+  --color-text-dim: #FFFFFF;
   --color-on-accent: #2A0B20;
 
   /* Brand */
-  --color-accent: #FF8CC0;
+  --color-accent: #EA599C;
   --color-accent-strong: #FF5FA2;
-  --color-gold: #FFB938;
+  --color-gold: #FFEB3B;
   --color-error: #FFB3C9;
 
   /* Locked badge */
