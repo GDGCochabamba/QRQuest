@@ -1,11 +1,22 @@
 import { useState } from "react";
+import bgImg from "./BG.png";
 import fox1 from "./1.svg";
 import fox2 from "./2.svg";
 import fox3 from "./3.svg";
 import fox4 from "./4.svg";
 
 const FOXES = [fox1, fox2, fox3, fox4];
-export const ACCENT = "#FF8CC0";
+export const ACCENT = "var(--color-accent)";
+
+// BG.png under a dark tint so the light text stays readable
+// eslint-disable-next-line react-refresh/only-export-components
+export const APP_BG = {
+  backgroundColor: "var(--color-bg)",
+  backgroundImage: `linear-gradient(var(--color-bg-overlay), var(--color-bg-overlay)), url(${bgImg})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundAttachment: "fixed",
+};
 // eslint-disable-next-line react-refresh/only-export-components
 export const BADGES = [
   { id: "first_scan", name: "Primer escaneo", palette: "pink", glyph: "star" },

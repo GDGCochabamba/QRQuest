@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ACCENT, Fox } from "./assets/assets";
+import { ACCENT, APP_BG, Fox } from "./assets/assets";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 
@@ -10,11 +10,11 @@ const iconButton = {
   width: 44,
   height: 44,
   borderRadius: 14,
-  background: "#2A1D57",
+  background: "var(--color-surface)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#F5EEFF",
+  color: "var(--color-text)",
 };
 
 const cornerBase = { position: "absolute", width: 46, height: 46, boxSizing: "border-box" };
@@ -30,7 +30,7 @@ const QrReader = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ background: "#0B0618", color: "#F5EEFF", fontFamily: "'Nunito', sans-serif", minHeight: "100dvh" }}>
+    <div style={{ ...APP_BG, color: "var(--color-text)", fontFamily: "'Nunito', sans-serif", minHeight: "100dvh" }}>
       <div style={{ maxWidth: 430, margin: "0 auto", minHeight: "100dvh", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
 
         {/* Top bar */}
@@ -51,15 +51,15 @@ const QrReader = () => {
         {/* Title */}
         <div style={{ padding: "20px 24px 0", textAlign: "center" }}>
           <div style={{ ...fredoka, fontSize: 28, fontWeight: 600, lineHeight: 1.2 }}>Encuentra un código de misión</div>
-          <div style={{ fontSize: 15, fontWeight: 600, color: "#C9BBEE", marginTop: 6 }}>Cada código QR desbloquea una insignia.</div>
+          <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-muted)", marginTop: 6 }}>Cada código QR desbloquea una insignia.</div>
         </div>
 
         {/* Scan frame (sample QR for now) */}
-        <div style={{ margin: "24px auto 0", width: 300, height: 300, position: "relative", background: "#1A1033", borderRadius: 32, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ width: 192, height: 192, boxSizing: "border-box", padding: 14, background: "#F5EEFF", borderRadius: 18, transform: "rotate(-4deg)" }}>
+        <div style={{ margin: "24px auto 0", width: 300, height: 300, position: "relative", background: "var(--color-surface-deep)", borderRadius: 32, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ width: 192, height: 192, boxSizing: "border-box", padding: 14, background: "var(--color-text)", borderRadius: 18, transform: "rotate(-4deg)" }}>
             <svg width="164" height="164" viewBox="0 0 21 21" shapeRendering="crispEdges" role="img" aria-label="Código QR de ejemplo">
-              <path fillRule="evenodd" fill="#1B0F3B" d="M0 0h7v7H0zM1 1h5v5H1zM2 2h3v3H2zM14 0h7v7h-7zM15 1h5v5h-5zM16 2h3v3h-3zM0 14h7v7H0zM1 15h5v5H1zM2 16h3v3H2z" />
-              <path fill="#1B0F3B" d="M8 0h2v1H8zM11 0h1v2h-1zM8 2h1v2H8zM10 3h2v1h-2zM13 1h1v3h-1zM9 5h3v1H9zM12 6h1v1h-1zM8 7h1v1H8zM10 8h2v1h-2zM0 8h1v1H0zM2 8h2v1H2zM5 8h1v2H5zM7 9h1v1H7zM1 10h2v1H1zM4 11h1v1H4zM0 12h1v1H0zM6 12h2v1H6zM9 10h1v2H9zM11 11h2v1h-2zM14 8h2v1h-2zM17 8h1v2h-1zM19 9h2v1h-2zM15 10h1v1h-1zM18 11h2v1h-2zM13 13h1v2h-1zM15 14h2v1h-2zM18 14h1v2h-1zM20 13h1v1h-1zM9 14h2v1H9zM8 16h1v2H8zM10 17h2v1h-2zM12 16h1v1h-1zM14 17h1v3h-1zM16 18h2v1h-2zM19 17h2v1h-2zM9 19h1v2H9zM11 20h2v1h-2zM16 20h1v1h-1zM19 19h1v2h-1z" />
+              <path fillRule="evenodd" fill="var(--color-qr-ink)" d="M0 0h7v7H0zM1 1h5v5H1zM2 2h3v3H2zM14 0h7v7h-7zM15 1h5v5h-5zM16 2h3v3h-3zM0 14h7v7H0zM1 15h5v5H1zM2 16h3v3H2z" />
+              <path fill="var(--color-qr-ink)" d="M8 0h2v1H8zM11 0h1v2h-1zM8 2h1v2H8zM10 3h2v1h-2zM13 1h1v3h-1zM9 5h3v1H9zM12 6h1v1h-1zM8 7h1v1H8zM10 8h2v1h-2zM0 8h1v1H0zM2 8h2v1H2zM5 8h1v2H5zM7 9h1v1H7zM1 10h2v1H1zM4 11h1v1H4zM0 12h1v1H0zM6 12h2v1H6zM9 10h1v2H9zM11 11h2v1h-2zM14 8h2v1h-2zM17 8h1v2h-1zM19 9h2v1h-2zM15 10h1v1h-1zM18 11h2v1h-2zM13 13h1v2h-1zM15 14h2v1h-2zM18 14h1v2h-1zM20 13h1v1h-1zM9 14h2v1H9zM8 16h1v2H8zM10 17h2v1h-2zM12 16h1v1h-1zM14 17h1v3h-1zM16 18h2v1h-2zM19 17h2v1h-2zM9 19h1v2H9zM11 20h2v1h-2zM16 20h1v1h-1zM19 19h1v2h-1z" />
             </svg>
           </div>
 
@@ -75,7 +75,7 @@ const QrReader = () => {
           <div style={{ transform: "scale(0.74)", transformOrigin: "left center", width: 68, flexShrink: 0 }}>
             <Fox />
           </div>
-          <div style={{ flex: 1, background: "#2A1D57", borderRadius: "18px 18px 18px 4px", padding: "12px 14px", fontSize: 15, fontWeight: 700, lineHeight: 1.35 }}>
+          <div style={{ flex: 1, background: "var(--color-surface)", borderRadius: "18px 18px 18px 4px", padding: "12px 14px", fontSize: 15, fontWeight: 700, lineHeight: 1.35 }}>
             Mantén firme y centra el código en el marco. ¡Yo olfatearé la insignia!
           </div>
         </div>
@@ -83,7 +83,7 @@ const QrReader = () => {
         {/* Progress */}
         <div style={{ margin: "22px 24px 0", display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ fontSize: 14, fontWeight: 800, whiteSpace: "nowrap" }}>5 / 9 insignias</div>
-          <div style={{ flex: 1, height: 10, borderRadius: 999, background: "#1A1033", overflow: "hidden" }}>
+          <div style={{ flex: 1, height: 10, borderRadius: 999, background: "var(--color-surface-deep)", overflow: "hidden" }}>
             <div style={{ width: "56%", height: "100%", borderRadius: 999, background: ACCENT }} />
           </div>
         </div>
@@ -92,13 +92,13 @@ const QrReader = () => {
         <div style={{ marginTop: "auto", padding: "24px 24px 28px", display: "flex", flexDirection: "column", gap: 10 }}>
           <button
             onClick={() => navigate("/")}
-            style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "#2A0B20", ...fredoka, fontSize: 18, fontWeight: 600 }}
+            style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600 }}
           >
             Simular un escaneo
           </button>
           <button
             type="button"
-            style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid #3A2A70", background: "none", color: "#DCCFFF", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
+            style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid var(--color-border)", background: "none", color: "var(--color-text-soft)", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
           >
             Ingresar código manualmente
           </button>

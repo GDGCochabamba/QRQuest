@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
-import {Confetti, ACCENT, BADGES, FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
+import {Confetti, ACCENT, APP_BG, BADGES, FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
 import { useEffect, useState } from "react";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
@@ -34,8 +34,8 @@ const Unlocked = () => {
       style={{
         position: "relative",
         overflow: "hidden",
-        background: "#130C26",
-        color: "#F5EEFF",
+        ...APP_BG,
+        color: "var(--color-text)",
         fontFamily: "'Nunito', sans-serif",
         minHeight: "100dvh",
       }}
@@ -62,8 +62,8 @@ const Unlocked = () => {
             display: "flex",
             alignItems: "center",
             gap: 8,
-            background: "#FF5FA2",
-            color: "#2A0B20",
+            background: "var(--color-accent-strong)",
+            color: "var(--color-on-accent)",
             borderRadius: 999,
             padding: "8px 16px",
             ...fredoka,
@@ -73,7 +73,7 @@ const Unlocked = () => {
           }}
         >
           <svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true">
-            <polygon points={STAR} fill="#2A0B20" />
+            <polygon points={STAR} fill="var(--color-on-accent)" />
           </svg>
           ¡NUEVA INSIGNIA!
         </div>
@@ -101,7 +101,7 @@ const Unlocked = () => {
 <div style={{ marginTop: 14, ...fredoka, fontSize: 32, fontWeight: 600, lineHeight: 1.2 }}>
   {badge.title}
 </div>
-<div style={{ marginTop: 6, padding: "0 24px", fontSize: 15, fontWeight: 600, color: "#C9BBEE" }}>
+<div style={{ marginTop: 6, padding: "0 24px", fontSize: 15, fontWeight: 600, color: "var(--color-text-muted)" }}>
   {badge.description}
 </div>
 
@@ -109,14 +109,14 @@ const Unlocked = () => {
         <div style={{ marginTop: 14, ...fredoka, fontSize: 32, fontWeight: 600, lineHeight: 1.2 }}>
           {badge.name}
         </div>
-        <div style={{ marginTop: 6, padding: "0 24px", fontSize: 15, fontWeight: 600, color: "#C9BBEE" }}>
+        <div style={{ marginTop: 6, padding: "0 24px", fontSize: 15, fontWeight: 600, color: "var(--color-text-muted)" }}>
           Encontraste el código escondido junto a la sala de lectura.
         </div>
 
         {/* Points pill */}
-        <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 8, background: "#2A1D57", borderRadius: 999, padding: "10px 18px" }}>
+        <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 8, background: "var(--color-surface)", borderRadius: 999, padding: "10px 18px" }}>
           <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true">
-            <polygon points={STAR} fill="#FFB938" />
+            <polygon points={STAR} fill="var(--color-gold)" />
           </svg>
           <span style={{ ...fredoka, fontSize: 20, fontWeight: 600 }}>+50 pts</span>
         </div>
@@ -127,7 +127,7 @@ const Unlocked = () => {
             margin: "20px 24px 0",
             alignSelf: "stretch",
             boxSizing: "border-box",
-            background: "#2A1D57",
+            background: "var(--color-surface)",
             borderRadius: 22,
             padding: "14px 16px",
             display: "flex",
@@ -139,13 +139,13 @@ const Unlocked = () => {
           <Fox width={60} height={66} happy />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ ...fredoka, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>6 de 9 insignias</div>
-            <div style={{ display: (scannedBadges.length == 9) ? "none" : "block", fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 2 }}>
+            <div style={{ display: (scannedBadges.length == 9) ? "none" : "block", fontSize: 14, fontWeight: 600, color: "var(--color-text-soft)", marginTop: 2 }}>
               Solo quedan { 9 - scannedBadges.length }. ¡Vas en racha!
             </div>
-            <div style={{ display: (scannedBadges.length == 9) ? "block" : "none", fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 2 }}>
+            <div style={{ display: (scannedBadges.length == 9) ? "block" : "none", fontSize: 14, fontWeight: 600, color: "var(--color-text-soft)", marginTop: 2 }}>
               ¡Felicidades, los encontraste todos!
             </div>
-            <div style={{ marginTop: 10, height: 10, borderRadius: 999, background: "#1A1033", overflow: "hidden" }}>
+            <div style={{ marginTop: 10, height: 10, borderRadius: 999, background: "var(--color-surface-deep)", overflow: "hidden" }}>
               <div style={{ width: "67%", height: "100%", borderRadius: 999, background: ACCENT }} />
             </div>
           </div>
@@ -155,13 +155,13 @@ const Unlocked = () => {
         <div style={{ marginTop: "auto", alignSelf: "stretch", padding: "24px 24px 28px", display: "flex", flexDirection: "column", gap: 10 }}>
           <button
             onClick={() => navigate("/scan")}
-            style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "#2A0B20", ...fredoka, fontSize: 18, fontWeight: 600 }}
+            style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600 }}
           >
             Escanear el siguiente código
           </button>
           <button
             onClick={() => navigate("/home")}
-            style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid #3A2A70", background: "none", color: "#DCCFFF", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
+            style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid var(--color-border)", background: "none", color: "var(--color-text-soft)", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
           >
             Ver mi colección
           </button>
