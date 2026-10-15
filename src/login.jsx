@@ -8,7 +8,7 @@ import { ACCENT, Fox } from "./assets/assets";
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 const resetButton = { border: 0, padding: 0, font: "inherit", cursor: "pointer" };
 
-const DEFAULT_MSG = "Hi! Tell me your name and I will find your badges.";
+const DEFAULT_MSG = "¡Hola! Dime tu nombre y encontraré tus insignias.";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,17 +19,17 @@ const Login = () => {
   const handleLogin = async () => {
     setError("");
     const name = username.trim();
-    if (!name) return setError("Enter a username");
+    if (!name) return setError("Ingresa un nombre de usuario");
 
     setBusy(true);
     try {
       const snap = await getDoc(doc(db, "Users", name));
-      if (!snap.exists()) return setError("User not found");
+      if (!snap.exists()) return setError("Usuario no encontrado");
   
       localStorage.setItem("username", name);
       navigate("/home");
     } catch (err) {
-      setError(err.code || "Something went wrong");
+      setError(err.code || "Algo salió mal");
     } finally {
       setBusy(false);
     }
@@ -38,21 +38,21 @@ const Login = () => {
   const handleCreateAccount = async () => {
     setError("");
     const name = username.trim();
-    if (!name) return setError("Enter a username");
-    if (name.includes("/")) return setError("Usernames can't contain /");
+    if (!name) return setError("Ingresa un nombre de usuario");
+    if (name.includes("/")) return setError("El nombre de usuario no puede contener /");
 
     setBusy(true);
     try {
       const ref = doc(db, "Users", name);
       const snap = await getDoc(ref);
-      if (snap.exists()) return setError("Username already taken");
+      if (snap.exists()) return setError("El nombre de usuario ya está en uso");
 
       await setDoc(ref, { Badges: [], Points: 0 });
 
       localStorage.setItem("username", name);
       navigate("/home");
     } catch (err) {
-      setError(err.code || "Something went wrong");
+      setError(err.code || "Algo salió mal");
     } finally {
       setBusy(false);
     }
@@ -107,12 +107,12 @@ const Login = () => {
 
         {/* Title */}
         <div style={{ marginTop: 28 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Welcome</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Bienvenido</div>
           <div style={{ ...fredoka, fontSize: 32, fontWeight: 600, lineHeight: 1.2 }}>
-            Ready to explore?
+            ¿Listo para explorar?
           </div>
           <div style={{ fontSize: 15, fontWeight: 600, color: "#C9BBEE", marginTop: 6 }}>
-            Log in to collect badges around campus.
+            Inicia sesión para coleccionar insignias por el campus.
           </div>
         </div>
 
@@ -121,12 +121,12 @@ const Login = () => {
           htmlFor="username"
           style={{ marginTop: 28, fontSize: 13, fontWeight: 800, color: "#A99BD0" }}
         >
-          Username
+          Nombre de usuario
         </label>
         <input
           id="username"
           className="login-input"
-          placeholder="Your username"
+          placeholder="Tu nombre de usuario"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoCapitalize="none"
@@ -165,7 +165,7 @@ const Login = () => {
               opacity: busy ? 0.6 : 1,
             }}
           >
-            Log in
+            Iniciar sesión
           </button>
           <button
             type="button"
@@ -184,7 +184,7 @@ const Login = () => {
               opacity: busy ? 0.6 : 1,
             }}
           >
-            Create account
+            Crear cuenta
           </button>
         </div>
       </form>

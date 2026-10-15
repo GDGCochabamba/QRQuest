@@ -1,15 +1,15 @@
 export const ACCENT = "#FF8CC0";
 // eslint-disable-next-line react-refresh/only-export-components
 export const BADGES = [
-  { id: "first_scan", name: "First Scan", palette: "pink", glyph: "star" },
-  { id: "early_bird", name: "Early Bird", palette: "amber", glyph: "circle" },
-  { id: "cafeteria", name: "Cafeteria", palette: "blue", glyph: "square" },
-  { id: "night_owl", name: "Night Owl", palette: "violet", glyph: "diamond" },
-  { id: "campus_run", name: "Campus Run", palette: "mint", glyph: "triangle" },
-  { id: "library", name: "Library", palette: "pink", glyph: "square" },
-  { id: "garden", name: "Garden", palette: "mint", glyph: "circle" },
-  { id: "rooftop", name: "Rooftop", palette: "blue", glyph: "diamond" },
-  { id: "secret", name: "Secret", palette: "amber", glyph: "star" },
+  { id: "first_scan", name: "Primer escaneo", palette: "pink", glyph: "star" },
+  { id: "early_bird", name: "Madrugador", palette: "amber", glyph: "circle" },
+  { id: "cafeteria", name: "Cafetería", palette: "blue", glyph: "square" },
+  { id: "night_owl", name: "Búho nocturno", palette: "violet", glyph: "diamond" },
+  { id: "campus_run", name: "Carrera del campus", palette: "mint", glyph: "triangle" },
+  { id: "library", name: "Biblioteca", palette: "pink", glyph: "square" },
+  { id: "garden", name: "Jardín", palette: "mint", glyph: "circle" },
+  { id: "rooftop", name: "Azotea", palette: "blue", glyph: "diamond" },
+  { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
 ];
 
 export const Fox = () => (
