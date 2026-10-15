@@ -47,7 +47,7 @@ const Login = () => {
       const snap = await getDoc(ref);
       if (snap.exists()) return setError("El nombre de usuario ya está en uso");
 
-      await setDoc(ref, { Badges: [], Points: 0 });
+      await setDoc(ref, { Badges: [], Points: 0, Redeemed: [] });
 
       localStorage.setItem("username", name);
       navigate("/home");

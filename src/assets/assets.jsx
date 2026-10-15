@@ -30,6 +30,13 @@ export const BADGES = [
   { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
 ];
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const REWARDS = [
+  { id: "reward_2", title: "Sticker", description: "Un sticker de QRQuest por reunir 2 insignias.", required: 2 },
+  { id: "reward_5", title: "Café", description: "Un café gratis por reunir 5 insignias.", required: 5 },
+  { id: "reward_all", title: "Camiseta", description: "Una camiseta de QRQuest por encontrar todas las insignias.", required: BADGES.length },
+];
+
 export const Fox = ({ width = 92, height = 100 }) => {
   // pick once per mount so re-renders don't swap the image
   const [src] = useState(() => FOXES[Math.floor(Math.random() * FOXES.length)]);

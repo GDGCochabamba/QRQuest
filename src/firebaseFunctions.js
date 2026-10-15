@@ -22,3 +22,16 @@ export const getBadges = async (userId) => {
   const snap = await getDoc(doc(db, "Users", userId));
   return snap.data()?.Badges ?? [];
 };
+
+// Ids of the rewards this user already redeemed (missing field = none)
+export const getRedeemed = async (userId) => {
+  const snap = await getDoc(doc(db, "Users", userId));
+  return snap.data()?.Redeemed ?? [];
+};
+
+// Mark a reward as redeemed (no duplicates)
+export const redeemReward = async (userId, rewardId) => {
+  await updateDoc(doc(db, "Users", userId), {
+    Redeemed: arrayUnion(rewardId),
+  });
+};
