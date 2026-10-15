@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "./firebase/firebaseConfig";
+import { createUser, userExists } from "./storage";
 import { ACCENT, APP_BG, Fox } from "./assets/assets";
 
 
@@ -23,12 +22,9 @@ const Login = () => {
 
     setBusy(true);
     try {
-      const snap = await getDoc(doc(db, "Users", name));
-      if (!snap.exists()) return setError("Usuario no encontrado");
-  
+      if (!userExists(name)) return setError("Usuario no encontrado");
+
       localStorage.setItem("username", name);
-      localStorage.removeItem("badges"); // never reuse another account's cache
-      localStorage.removeItem("points");
       navigate("/home");
     } catch (err) {
       setError(err.code || "Algo salió mal");
@@ -45,15 +41,11 @@ const Login = () => {
 
     setBusy(true);
     try {
-      const ref = doc(db, "Users", name);
-      const snap = await getDoc(ref);
-      if (snap.exists()) return setError("El nombre de usuario ya está en uso");
+      if (userExists(name)) return setError("El nombre de usuario ya está en uso");
 
-      await setDoc(ref, { Badges: [], Points: 0, Redeemed: [] });
+      createUser(name);
 
       localStorage.setItem("username", name);
-      localStorage.removeItem("badges"); // never reuse another account's cache
-      localStorage.removeItem("points");
       navigate("/home");
     } catch (err) {
       setError(err.code || "Algo salió mal");

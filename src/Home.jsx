@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase/firebaseConfig";
+import { getBadges } from "./storage";
 import { APP_BG, FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
 
 
@@ -63,39 +62,17 @@ const LockedGem = () => (
 const Home = () => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
-  const [earned, setEarned] = useState([]);
-  const [points, setPoints] = useState(0);
+  const earned = username ? getBadges(username) : [];
 
   useEffect(() => {
     if (!username) {
       navigate("/login", { replace: true });
       return;
     }
-    const load = async () => {
-      try {
-        const rawBadges = localStorage.getItem("badges");
-        const cachePoints = localStorage.getItem("points");
-        if (rawBadges != undefined && rawBadges.trim != "") {
-          setEarned(JSON.parse(rawBadges));
-        } else {
-          const snap = await getDoc(doc(db, "Users", username));
-          const data = snap.data();
-          setEarned(data?.Badges ?? []);
-          setPoints(data?.Points ?? 0);
-          localStorage.setItem("badges", JSON.stringify(data.Badges));
-          localStorage.setItem("points", cachePoints);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    load();
   }, [username, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("username");
-    localStorage.removeItem("badges");
-    localStorage.removeItem("points");
     navigate("/login", { replace: true });
   };
 

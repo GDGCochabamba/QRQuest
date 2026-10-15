@@ -6,7 +6,7 @@ import "./scanner.css";
 // Qr Scanner
 import QrScanner from "qr-scanner";
 import qrBorder from "../public/qrBorder.svg";
-import { addBadge } from "./firebaseFunctions";
+import { addBadge, getBadges } from "./storage";
 import { ACCENT, APP_BG, BADGES, Fox } from "./assets/assets";
 import { useNavigate } from "react-router-dom";
 
@@ -21,14 +21,7 @@ const QrReader = () => {
   const [qrOn, setQrOn] = useState([true, true]);
 
   // Result
-  const getLocalBadges = () => {
-    try {
-      const parsed = JSON.parse(localStorage.getItem("badges"));
-      return Array.isArray(parsed) ? parsed : [];
-    } catch {
-      return [];
-    }
-  };
+  const getLocalBadges = () => getBadges(localStorage.getItem("username"));
   //const [scannedResult, setScannedResult] = useState(["", ""]);
   const navigate = useNavigate();
   const onScanSuccess = async (result) => {
@@ -53,10 +46,8 @@ const QrReader = () => {
   scanner.current?.stop();
 
   try {
-    // 3. Save to Firestore, then to the local "badges" array
-    const username = localStorage.getItem("username");
-    await addBadge(username, badge.id, badge.points);
-    localStorage.setItem("badges", JSON.stringify([...local, badge.id]));
+    // 3. Save to this device's user record
+    addBadge(localStorage.getItem("username"), badge.id);
 
     // 4. Tell the unlocked screen which badge to show
     localStorage.setItem("scannedBadge", badge.id);

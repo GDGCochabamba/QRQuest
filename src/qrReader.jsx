@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ACCENT, APP_BG, BADGES, Fox } from "./assets/assets";
+import { getBadges } from "./storage";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 
@@ -29,11 +30,7 @@ const corners = [
 const QrReader = () => {
   const navigate = useNavigate();
 
-  let earned = [];
-  try {
-    const parsed = JSON.parse(localStorage.getItem("badges"));
-    if (Array.isArray(parsed)) earned = parsed;
-  } catch { /* no cached badges */ }
+  const earned = getBadges(localStorage.getItem("username"));
   const total = BADGES.length;
   const count = earned.filter((id) => BADGES.some((b) => b.id === id)).length;
   const percent = Math.round((count / total) * 100);

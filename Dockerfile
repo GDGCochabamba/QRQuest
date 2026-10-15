@@ -5,18 +5,8 @@ FROM node:24-alpine AS build
 WORKDIR /app
 RUN corepack enable
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-# Lifecycle scripts are not needed to bundle a web app (also avoids pnpm's ignored-builds error)
-RUN pnpm install --frozen-lockfile --ignore-scripts
-
-# Vite inlines VITE_* values at build time, so pass them as build args:
-#   docker build --build-arg VITE_FIREBASE_API_KEY=... -t qrquest .
-ARG VITE_FIREBASE_API_KEY
-ARG VITE_FIREBASE_AUTH_DOMAIN
-ARG VITE_FIREBASE_PROJECT_ID
-ARG VITE_FIREBASE_STORAGE_BUCKET
-ARG VITE_FIREBASE_MESSAGING_SENDER_ID
-ARG VITE_FIREBASE_APP_ID
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 RUN pnpm exec vite build

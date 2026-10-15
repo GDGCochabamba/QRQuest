@@ -1,20 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCENT, APP_BG, BADGES, REWARDS } from "./assets/assets";
-import { getRedeemed, redeemReward } from "./firebaseFunctions";
+import { getBadges, getRedeemed, redeemReward } from "./storage";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 const resetButton = { background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" };
 
-// Badge ids earned, from the local cache (same source as Home). Bad data counts as none.
-const getEarnedBadges = () => {
-  try {
-    const parsed = JSON.parse(localStorage.getItem("badges"));
-    return Array.isArray(parsed) ? [...new Set(parsed)].filter((id) => BADGES.some((b) => b.id === id)) : [];
-  } catch {
-    return [];
-  }
-};
+// Badge ids earned by this user; unknown or repeated ids don't count
+const getEarnedBadges = (username) => [...new Set(getBadges(username))].filter((id) => BADGES.some((b) => b.id === id));
 
 const LockIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -38,61 +31,36 @@ const NavButton = ({ label, color, onClick, children }) => (
 const Rewards = () => {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
-  const earned = getEarnedBadges();
+  const earned = username ? getEarnedBadges(username) : [];
   const count = earned.length;
   const total = BADGES.length;
 
-  const [redeemed, setRedeemed] = useState([]);
-  const [loadState, setLoadState] = useState("loading"); // "loading" | "ready" | "error"
+  const [redeemed, setRedeemed] = useState(() => (username ? getRedeemed(username) : []));
   const [confirming, setConfirming] = useState(null); // reward being confirmed
-  const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState("");
   const triggerRef = useRef(null); // "Canjear" button to return focus to
 
-  const [reloadKey, setReloadKey] = useState(0);
-
   useEffect(() => {
-    if (!username) {
-      navigate("/login", { replace: true });
-      return;
-    }
-    let cancelled = false;
-    getRedeemed(username)
-      .then((ids) => {
-        if (cancelled) return;
-        setRedeemed(ids);
-        setLoadState("ready");
-      })
-      .catch((err) => {
-        console.error(err);
-        if (!cancelled) setLoadState("error");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [username, navigate, reloadKey]);
+    if (!username) navigate("/login", { replace: true });
+  }, [username, navigate]);
 
-  const handleRedeem = async () => {
-    if (busy || !confirming) return;
-    setBusy(true);
-    setActionError("");
+  const handleRedeem = () => {
+    if (!confirming) return;
     try {
-      // Re-read first: it may have been redeemed from another device
-      const current = await getRedeemed(username);
+      // Re-read first: it may have been redeemed in another tab
+      const current = getRedeemed(username);
       if (current.includes(confirming.id)) {
         // Do not look like a fresh redeem: the prize was already handed out
         setRedeemed(current);
         setActionError("Este premio ya fue canjeado.");
         return;
       }
-      await redeemReward(username, confirming.id);
+      redeemReward(username, confirming.id);
       setRedeemed([...current, confirming.id]);
       closeDialog();
     } catch (err) {
       console.error(err);
       setActionError("No se pudo canjear. Inténtalo de nuevo.");
-    } finally {
-      setBusy(false);
     }
   };
 
@@ -102,15 +70,10 @@ const Rewards = () => {
     triggerRef.current?.focus();
   };
 
-  const closeConfirm = () => {
-    if (busy) return;
-    closeDialog();
-  };
-
   useEffect(() => {
     if (!confirming) return;
     const onKey = (e) => {
-      if (e.key === "Escape" && !busy) closeDialog();
+      if (e.key === "Escape") closeDialog();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -127,26 +90,7 @@ const Rewards = () => {
           </div>
         </div>
 
-        {loadState === "loading" && (
-          <div style={{ padding: "24px 20px", fontSize: 15, fontWeight: 700, color: "var(--color-text-soft)" }}>Cargando…</div>
-        )}
-
-        {loadState === "error" && (
-          <div role="alert" style={{ margin: "24px 20px 0", padding: 16, borderRadius: 18, background: "var(--color-surface)" }}>
-            <div style={{ fontSize: 15, fontWeight: 700, color: "var(--color-error)" }}>No se pudieron cargar tus recompensas.</div>
-            <button
-              onClick={() => {
-                setLoadState("loading");
-                setReloadKey((k) => k + 1);
-              }}
-              style={{ ...resetButton, marginTop: 12, height: 44, padding: "0 18px", borderRadius: 14, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 16, fontWeight: 600 }}
-            >
-              Reintentar
-            </button>
-          </div>
-        )}
-
-        {loadState === "ready" && (
+        {(
           <div style={{ padding: "20px 20px 0", display: "flex", flexDirection: "column", gap: 14 }}>
             {REWARDS.map((reward) => {
               const isRedeemed = redeemed.includes(reward.id);
@@ -210,14 +154,12 @@ const Rewards = () => {
               <button
                 onClick={handleRedeem}
                 autoFocus
-                disabled={busy}
-                style={{ ...resetButton, height: 52, borderRadius: 16, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600, opacity: busy ? 0.6 : 1 }}
+                style={{ ...resetButton, height: 52, borderRadius: 16, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600 }}
               >
-                {busy ? "Canjeando…" : "Confirmar"}
+                Confirmar
               </button>
               <button
-                onClick={closeConfirm}
-                disabled={busy}
+                onClick={closeDialog}
                 style={{ ...resetButton, height: 44, borderRadius: 14, border: "2px solid var(--color-border)", color: "var(--color-text-soft)", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
               >
                 Cancelar
