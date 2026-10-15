@@ -6,6 +6,7 @@ import Home from "./Home";
 import QrReader from "./scanner";
 import Login from "./login";
 import Unlocked from "./unlocked";
+import Rewards from "./Rewards";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/scan" element={<QrReader />} />
         <Route path="/login" element={<Login />} />
         <Route path="/unlocked" element={<Unlocked />} />
+        <Route path="/rewards" element={<Rewards />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
