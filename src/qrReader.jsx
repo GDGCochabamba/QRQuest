@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ACCENT, APP_BG, Fox } from "./assets/assets";
+import { ACCENT, APP_BG, BADGES, Fox } from "./assets/assets";
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 
@@ -28,6 +28,15 @@ const corners = [
 
 const QrReader = () => {
   const navigate = useNavigate();
+
+  let earned = [];
+  try {
+    const parsed = JSON.parse(localStorage.getItem("badges"));
+    if (Array.isArray(parsed)) earned = parsed;
+  } catch { /* no cached badges */ }
+  const total = BADGES.length;
+  const count = earned.filter((id) => BADGES.some((b) => b.id === id)).length;
+  const percent = Math.round((count / total) * 100);
 
   return (
     <div style={{ ...APP_BG, color: "var(--color-text)", fontFamily: "'Nunito', sans-serif", minHeight: "100dvh" }}>
@@ -82,26 +91,10 @@ const QrReader = () => {
 
         {/* Progress */}
         <div style={{ margin: "22px 24px 0", display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ fontSize: 14, fontWeight: 800, whiteSpace: "nowrap" }}>5 / 9 insignias</div>
+          <div style={{ fontSize: 14, fontWeight: 800, whiteSpace: "nowrap" }}>{count} / {total} insignias</div>
           <div style={{ flex: 1, height: 10, borderRadius: 999, background: "var(--color-surface-deep)", overflow: "hidden" }}>
-            <div style={{ width: "56%", height: "100%", borderRadius: 999, background: ACCENT }} />
+            <div style={{ width: `${percent}%`, height: "100%", borderRadius: 999, background: ACCENT }} />
           </div>
-        </div>
-
-        {/* Bottom buttons */}
-        <div style={{ marginTop: "auto", padding: "24px 24px 28px", display: "flex", flexDirection: "column", gap: 10 }}>
-          <button
-            onClick={() => navigate("/")}
-            style={{ ...resetButton, height: 56, borderRadius: 18, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600 }}
-          >
-            Simular un escaneo
-          </button>
-          <button
-            type="button"
-            style={{ ...resetButton, height: 48, borderRadius: 16, border: "2px solid var(--color-border)", background: "none", color: "var(--color-text-soft)", fontSize: 15, fontWeight: 800, boxSizing: "border-box" }}
-          >
-            Ingresar código manualmente
-          </button>
         </div>
       </div>
     </div>
