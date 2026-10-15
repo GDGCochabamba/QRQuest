@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Icon: full-screen
+  Set: Element Plus
+  Author: Element Plus (https://github.com/element-plus/element-plus-icons)
+  License: MIT (https://github.com/element-plus/element-plus-icons/blob/main/packages/svg/package.json)
+  Source: https://iconify.design
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 1024 1024"
+     width="1024"
+     height="1024">
+  <title>Corner Brackets Icon</title>
+  <metadata>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:cc="http://creativecommons.org/ns#">
+      <cc:Work rdf:about="">
+        <dc:title>Corner Brackets Icon</dc:title>
+        <dc:description>A simple icon featuring a pair of corner brackets, commonly used to represent code or text formatting. This icon can be used in various contexts, such as coding tutorials, text editors, or software development projects.</dc:description>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Element Plus</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:source>https://github.com/element-plus/element-plus-icons</dc:source>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Element Plus</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license rdf:resource="https://github.com/element-plus/element-plus-icons/blob/main/packages/svg/package.json"/>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>corner-brackets</rdf:li>
+            <rdf:li>code-icon</rdf:li>
+            <rdf:li>text-formatting</rdf:li>
+            <rdf:li>brackets-symbol</rdf:li>
+            <rdf:li>coding-icon</rdf:li>
+            <rdf:li>software-development</rdf:li>
+            <rdf:li>text-editor</rdf:li>
+            <rdf:li>programming-symbol</rdf:li>
+            <rdf:li>corner-icon</rdf:li>
+            <rdf:li>bracket-icon</rdf:li>
+            <rdf:li>code-symbol</rdf:li>
+            <rdf:li>text-icon</rdf:li>
+            <rdf:li>formatting-icon</rdf:li>
+            <rdf:li>coding-symbol</rdf:li>
+            <rdf:li>software-icon</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="https://github.com/element-plus/element-plus-icons/blob/main/packages/svg/package.json">
+        <dc:title>MIT (MIT)</dc:title>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <path fill="currentColor" d="m160 96.064l192 .192a32 32 0 0 1 0 64l-192-.192V352a32 32 0 0 1-64 0V96h64zm0 831.872V928H96V672a32 32 0 1 1 64 0v191.936l192-.192a32 32 0 1 1 0 64zM864 96.064V96h64v256a32 32 0 1 1-64 0V160.064l-192 .192a32 32 0 1 1 0-64zm0 831.872l-192-.192a32 32 0 0 1 0-64l192 .192V672a32 32 0 1 1 64 0v256h-64z"/>
+</svg>
