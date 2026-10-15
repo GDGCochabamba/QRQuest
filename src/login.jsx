@@ -27,6 +27,8 @@ const Login = () => {
       if (!snap.exists()) return setError("Usuario no encontrado");
   
       localStorage.setItem("username", name);
+      localStorage.removeItem("badges"); // never reuse another account's cache
+      localStorage.removeItem("points");
       navigate("/home");
     } catch (err) {
       setError(err.code || "Algo salió mal");
@@ -50,6 +52,8 @@ const Login = () => {
       await setDoc(ref, { Badges: [], Points: 0, Redeemed: [] });
 
       localStorage.setItem("username", name);
+      localStorage.removeItem("badges"); // never reuse another account's cache
+      localStorage.removeItem("points");
       navigate("/home");
     } catch (err) {
       setError(err.code || "Algo salió mal");

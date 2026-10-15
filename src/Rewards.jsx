@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ACCENT, APP_BG, BADGES, REWARDS } from "./assets/assets";
 import { getRedeemed, redeemReward } from "./firebaseFunctions";
@@ -10,7 +10,7 @@ const resetButton = { background: "none", border: "none", padding: 0, font: "inh
 const getEarnedBadges = () => {
   try {
     const parsed = JSON.parse(localStorage.getItem("badges"));
-    return Array.isArray(parsed) ? parsed.filter((id) => BADGES.some((b) => b.id === id)) : [];
+    return Array.isArray(parsed) ? [...new Set(parsed)].filter((id) => BADGES.some((b) => b.id === id)) : [];
   } catch {
     return [];
   }
@@ -47,6 +47,7 @@ const Rewards = () => {
   const [confirming, setConfirming] = useState(null); // reward being confirmed
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState("");
+  const triggerRef = useRef(null); // "Canjear" button to return focus to
 
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -78,9 +79,15 @@ const Rewards = () => {
     try {
       // Re-read first: it may have been redeemed from another device
       const current = await getRedeemed(username);
-      if (!current.includes(confirming.id)) await redeemReward(username, confirming.id);
-      setRedeemed(current.includes(confirming.id) ? current : [...current, confirming.id]);
-      setConfirming(null);
+      if (current.includes(confirming.id)) {
+        // Do not look like a fresh redeem: the prize was already handed out
+        setRedeemed(current);
+        setActionError("Este premio ya fue canjeado.");
+        return;
+      }
+      await redeemReward(username, confirming.id);
+      setRedeemed([...current, confirming.id]);
+      closeDialog();
     } catch (err) {
       console.error(err);
       setActionError("No se pudo canjear. Inténtalo de nuevo.");
@@ -89,15 +96,29 @@ const Rewards = () => {
     }
   };
 
-  const closeConfirm = () => {
-    if (busy) return;
+  const closeDialog = () => {
     setConfirming(null);
     setActionError("");
+    triggerRef.current?.focus();
   };
+
+  const closeConfirm = () => {
+    if (busy) return;
+    closeDialog();
+  };
+
+  useEffect(() => {
+    if (!confirming) return;
+    const onKey = (e) => {
+      if (e.key === "Escape" && !busy) closeDialog();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   return (
     <div style={{ ...APP_BG, color: "var(--color-text)", fontFamily: "'Nunito', sans-serif", minHeight: "100dvh" }}>
-      <div style={{ maxWidth: 430, margin: "0 auto", paddingBottom: 120 }}>
+      <div inert={confirming ? "" : undefined} style={{ maxWidth: 430, margin: "0 auto", paddingBottom: 120 }}>
         <div style={{ padding: "28px 20px 0" }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-dim)" }}>Tus premios</div>
           <div style={{ ...fredoka, fontSize: 26, fontWeight: 600, lineHeight: 1.2 }}>Recompensas</div>
@@ -148,7 +169,10 @@ const Rewards = () => {
                       <span style={{ fontSize: 14, fontWeight: 800, color: "var(--color-gold)" }}>Canjeada ✓</span>
                     ) : unlocked ? (
                       <button
-                        onClick={() => setConfirming(reward)}
+                        onClick={(e) => {
+                          triggerRef.current = e.currentTarget;
+                          setConfirming(reward);
+                        }}
                         style={{ ...resetButton, height: 44, padding: "0 20px", borderRadius: 14, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 16, fontWeight: 600 }}
                       >
                         Canjear
@@ -172,7 +196,7 @@ const Rewards = () => {
           role="dialog"
           aria-modal="true"
           aria-label="Confirmar canje"
-          style={{ position: "fixed", inset: 0, background: "var(--color-bg-overlay)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}
+          style={{ position: "fixed", inset: 0, background: "var(--color-bg-overlay)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, zIndex: 100 }}
         >
           <div style={{ width: "100%", maxWidth: 360, background: "var(--color-surface)", borderRadius: 24, padding: 22 }}>
             <div style={{ ...fredoka, fontSize: 22, fontWeight: 600 }}>¿Canjear {confirming.title}?</div>
@@ -185,6 +209,7 @@ const Rewards = () => {
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 18 }}>
               <button
                 onClick={handleRedeem}
+                autoFocus
                 disabled={busy}
                 style={{ ...resetButton, height: 52, borderRadius: 16, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 18, fontWeight: 600, opacity: busy ? 0.6 : 1 }}
               >

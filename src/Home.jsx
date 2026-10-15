@@ -94,6 +94,8 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("username");
+    localStorage.removeItem("badges");
+    localStorage.removeItem("points");
     navigate("/login", { replace: true });
   };
 
