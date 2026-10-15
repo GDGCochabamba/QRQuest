@@ -106,6 +106,10 @@ const QrReader = () => {
   }, [qrOn]);
 
 
+  const total = BADGES.length;
+  const count = getLocalBadges().filter((id) => BADGES.some((b) => b.id === id)).length;
+  const percent = Math.round((count / total) * 100);
+
   const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 
 const resetButton = { border: 0, padding: 0, font: "inherit", cursor: "pointer" };
@@ -220,9 +224,9 @@ const corners = [
 
         {/* Progress */}
         <div style={{ margin: "22px 24px 0", display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ fontSize: 14, fontWeight: 800, whiteSpace: "nowrap" }}>5 / 9 insignias</div>
+          <div style={{ fontSize: 14, fontWeight: 800, whiteSpace: "nowrap" }}>{count} / {total} insignias</div>
           <div style={{ flex: 1, height: 10, borderRadius: 999, background: "var(--color-surface-deep)", overflow: "hidden" }}>
-            <div style={{ width: "56%", height: "100%", borderRadius: 999, background: ACCENT }} />
+            <div style={{ width: `${percent}%`, height: "100%", borderRadius: 999, background: ACCENT }} />
           </div>
         </div>
 
