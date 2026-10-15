@@ -29,4 +29,4 @@ dist-ssr
 
 .env
 .env.local
-.env.*.local
+.env.*.local No newline at end of file
