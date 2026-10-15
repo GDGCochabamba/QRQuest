@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
-import { FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
+import { APP_BG, FACE_POINTS, Fox, Glyph, PALETTES } from "./assets/assets";
 
 
-const ACCENT = "#FF8CC0";
+import { ACCENT } from "./assets/assets";
 
 // The 6 triangular faces of a gem, in the same order as the colors below
 
@@ -50,13 +50,13 @@ const LockedGem = () => (
   <svg width="96" height="96" viewBox="0 0 100 100" aria-hidden="true">
     <polygon
       points="50,6 88,28 88,72 50,94 12,72 12,28"
-      fill="#1E1442"
-      stroke="#4A3790"
+      fill="var(--color-lock-fill)"
+      stroke="var(--color-lock-border)"
       strokeWidth="2"
       strokeDasharray="4 4"
     />
-    <rect x="39" y="48" width="22" height="17" rx="3" fill="#6F5FA0" />
-    <path d="M43 48 v-6 a7 7 0 0 1 14 0 v6" stroke="#6F5FA0" strokeWidth="3.5" fill="none" />
+    <rect x="39" y="48" width="22" height="17" rx="3" fill="var(--color-lock)" />
+    <path d="M43 48 v-6 a7 7 0 0 1 14 0 v6" stroke="var(--color-lock)" strokeWidth="3.5" fill="none" />
   </svg>
 );
 
@@ -103,41 +103,41 @@ const Home = () => {
   const percent = Math.round((count / total) * 100);
 
   return (
-    <div style={{ background: "#130C26", color: "#F5EEFF", fontFamily: "'Nunito', sans-serif", minHeight: "100vh" }}>
+    <div style={{ ...APP_BG, color: "var(--color-text)", fontFamily: "'Nunito', sans-serif", minHeight: "100vh" }}>
       <div style={{ maxWidth: 430, margin: "0 auto", paddingBottom: 120 }}>
 
         {/* Header */}
         <div style={{ padding: "28px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Bienvenido de nuevo</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-dim)" }}>Bienvenido de nuevo</div>
             <div style={{ ...fredoka, fontSize: 26, fontWeight: 600, lineHeight: 1.2 }}>¡Hola, {username}!</div>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#2A1D57", borderRadius: 999, padding: "8px 14px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--color-surface)", borderRadius: 999, padding: "8px 14px" }}>
             <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true">
-              <polygon points="50,6 63,36 95,38 70,59 78,92 50,74 22,92 30,59 5,38 37,36" fill="#FFB938" />
+              <polygon points="50,6 63,36 95,38 70,59 78,92 50,74 22,92 30,59 5,38 37,36" fill="var(--color-gold)" />
             </svg>
             <span style={{ ...fredoka, fontSize: 16, fontWeight: 600 }}>{earned.length * 10} pts</span>
           </div>
         </div>
 
         {/* Progress card */}
-        <div style={{ margin: "18px 20px 0", position: "relative", overflow: "hidden", background: "#3A2478", borderRadius: 24, padding: 16, display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ margin: "18px 20px 0", position: "relative", overflow: "hidden", background: "var(--color-card)", borderRadius: 24, padding: 16, display: "flex", alignItems: "center", gap: 14 }}>
           <svg width="150" height="140" viewBox="0 0 150 140" aria-hidden="true" style={{ position: "absolute", right: 0, top: 0 }}>
-            <polygon points="150,0 60,0 150,70" fill="#4B2E9A" />
-            <polygon points="150,70 60,0 110,110" fill="#432A8C" opacity="0.8" />
-            <polygon points="150,70 110,110 150,140" fill="#553AA8" />
+            <polygon points="150,0 60,0 150,70" fill="var(--color-card-facet-1)" />
+            <polygon points="150,70 60,0 110,110" fill="var(--color-card-facet-2)" opacity="0.8" />
+            <polygon points="150,70 110,110 150,140" fill="var(--color-card-facet-3)" />
           </svg>
           <Fox />
           <div style={{ position: "relative", flex: 1, minWidth: 0 }}>
             <div style={{ ...fredoka, fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>
               {count} de {total} insignias
             </div>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#DCCFFF", marginTop: 4, lineHeight: 1.35 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-soft)", marginTop: 4, lineHeight: 1.35 }}>
               {remaining > 0
                 ? `${remaining} ${remaining === 1 ? "código QR más está escondido" : "códigos QR más están escondidos"} por el campus.`
                 : "¡Los encontraste todos!"}
             </div>
-            <div style={{ marginTop: 12, height: 10, borderRadius: 999, background: "#1A1033", overflow: "hidden" }}>
+            <div style={{ marginTop: 12, height: 10, borderRadius: 999, background: "var(--color-surface-deep)", overflow: "hidden" }}>
               <div style={{ width: `${percent}%`, height: "100%", borderRadius: 999, background: ACCENT, transition: "width 0.4s" }} />
             </div>
           </div>
@@ -146,7 +146,7 @@ const Home = () => {
         {/* Badges title */}
         <div style={{ margin: "22px 20px 12px", display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
           <div style={{ ...fredoka, fontSize: 20, fontWeight: 600 }}>Tus insignias</div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Toca una insignia para ver detalles</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-dim)" }}>Toca una insignia para ver detalles</div>
         </div>
 
         {/* Badge grid */}
@@ -156,7 +156,7 @@ const Home = () => {
             return (
               <div key={badge.id} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                 {unlocked ? <Gem palette={badge.palette} glyph={badge.glyph} /> : <LockedGem />}
-                <div style={{ fontSize: 13, fontWeight: unlocked ? 800 : 700, color: unlocked ? "inherit" : "#A99BD0" }}>
+                <div style={{ fontSize: 13, fontWeight: unlocked ? 800 : 700, color: unlocked ? "inherit" : "var(--color-text-dim)" }}>
                   {badge.name}
                 </div>
               </div>
@@ -165,14 +165,14 @@ const Home = () => {
         </div>
 
         <div style={{ textAlign: "center", marginTop: 24 }}>
-          <button onClick={handleLogout} style={{ ...resetButton, color: "#A99BD0", fontSize: 13, fontWeight: 700 }}>
+          <button onClick={handleLogout} style={{ ...resetButton, color: "var(--color-text-dim)", fontSize: 13, fontWeight: 700 }}>
             Cerrar sesión
           </button>
         </div>
       </div>
 
       {/* Bottom nav */}
-      <div style={{ position: "fixed", left: 0, right: 0, bottom: 0, background: "#1A1033", borderTop: "1px solid #2A1D57" }}>
+      <div style={{ position: "fixed", left: 0, right: 0, bottom: 0, background: "var(--color-surface-deep)", borderTop: "1px solid var(--color-surface)" }}>
         <div style={{ maxWidth: 430, margin: "0 auto", height: 88, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "space-around", padding: "0 24px" }}>
           <button style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 64, minHeight: 44, color: ACCENT }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
@@ -184,7 +184,7 @@ const Home = () => {
           <button
             onClick={() => navigate("/scan")}
             aria-label="Escanear un código QR"
-            style={{ ...resetButton, width: 68, height: 68, marginTop: -34, borderRadius: 24, background: ACCENT, border: "5px solid #130C26", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A0B20", boxSizing: "border-box" }}
+            style={{ ...resetButton, width: 68, height: 68, marginTop: -34, borderRadius: 24, background: ACCENT, border: "5px solid var(--color-bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-on-accent)", boxSizing: "border-box" }}
           >
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1.5" />
@@ -194,7 +194,7 @@ const Home = () => {
             </svg>
           </button>
 
-          <button style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 64, minHeight: 44, color: "#A99BD0" }}>
+          <button style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 64, minHeight: 44, color: "var(--color-text-dim)" }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 9h16v11H4zM2 5h20v4H2zM12 5v15" />
             </svg>

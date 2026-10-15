@@ -1,0 +1,34 @@
+/* Design tokens. Edit values here to restyle the whole app. */
+:root {
+  /* Surfaces */
+  --color-bg: #130C26;
+  --color-bg-overlay: rgba(19, 12, 38, 0.55); /* tint over BG.png */
+  --color-surface: #2A1D57;
+  --color-surface-deep: #1A1033;
+  --color-card: #3A2478;
+  --color-card-facet-1: #4B2E9A;
+  --color-card-facet-2: #432A8C;
+  --color-card-facet-3: #553AA8;
+  --color-border: #3A2A70;
+
+  /* Text */
+  --color-text: #F5EEFF;
+  --color-text-soft: #DCCFFF;
+  --color-text-muted: #C9BBEE;
+  --color-text-dim: #A99BD0;
+  --color-on-accent: #2A0B20;
+
+  /* Brand */
+  --color-accent: #FF8CC0;
+  --color-accent-strong: #FF5FA2;
+  --color-gold: #FFB938;
+  --color-error: #FFB3C9;
+
+  /* Locked badge */
+  --color-lock: #6F5FA0;
+  --color-lock-border: #4A3790;
+  --color-lock-fill: #1E1442;
+
+  /* Scanner */
+  --color-qr-ink: #1B0F3B;
+}

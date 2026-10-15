@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
-import { ACCENT, Fox } from "./assets/assets";
+import { ACCENT, APP_BG, Fox } from "./assets/assets";
 
 
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
@@ -61,14 +61,14 @@ const Login = () => {
   return (
     <div
       style={{
-        background: "#130C26",
-        color: "#F5EEFF",
+        ...APP_BG,
+        color: "var(--color-text)",
         fontFamily: "'Nunito', sans-serif",
         minHeight: "100dvh",
       }}
     >
       <style>{`.login-input:focus { border-color: ${ACCENT}; outline: none; }
-.login-input::placeholder { color: #6F5FA0; }`}</style>
+.login-input::placeholder { color: var(--color-lock); }`}</style>
 
       <form
         onSubmit={(e) => {
@@ -92,13 +92,13 @@ const Login = () => {
             role={error ? "alert" : undefined}
             style={{
               flex: 1,
-              background: "#2A1D57",
+              background: "var(--color-surface)",
               borderRadius: "18px 18px 18px 4px",
               padding: "12px 14px",
               fontSize: 15,
               fontWeight: 700,
               lineHeight: 1.35,
-              color: error ? "#FFB3C9" : "#F5EEFF",
+              color: error ? "var(--color-error)" : "var(--color-text)",
             }}
           >
             {error || DEFAULT_MSG}
@@ -107,11 +107,11 @@ const Login = () => {
 
         {/* Title */}
         <div style={{ marginTop: 28 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#A99BD0" }}>Bienvenido</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-dim)" }}>Bienvenido</div>
           <div style={{ ...fredoka, fontSize: 32, fontWeight: 600, lineHeight: 1.2 }}>
             ¿Listo para explorar?
           </div>
-          <div style={{ fontSize: 15, fontWeight: 600, color: "#C9BBEE", marginTop: 6 }}>
+          <div style={{ fontSize: 15, fontWeight: 600, color: "var(--color-text-muted)", marginTop: 6 }}>
             Inicia sesión para coleccionar insignias por el campus.
           </div>
         </div>
@@ -119,7 +119,7 @@ const Login = () => {
         {/* Username */}
         <label
           htmlFor="username"
-          style={{ marginTop: 28, fontSize: 13, fontWeight: 800, color: "#A99BD0" }}
+          style={{ marginTop: 28, fontSize: 13, fontWeight: 800, color: "var(--color-text-dim)" }}
         >
           Nombre de usuario
         </label>
@@ -136,9 +136,9 @@ const Login = () => {
             marginTop: 8,
             height: 52,
             borderRadius: 16,
-            border: "2px solid #3A2A70",
-            background: "#1A1033",
-            color: "#F5EEFF",
+            border: "2px solid var(--color-border)",
+            background: "var(--color-surface-deep)",
+            color: "var(--color-text)",
             padding: "0 16px",
             fontFamily: "inherit",
             fontSize: 16,
@@ -158,7 +158,7 @@ const Login = () => {
               height: 56,
               borderRadius: 18,
               background: ACCENT,
-              color: "#2A0B20",
+              color: "var(--color-on-accent)",
               ...fredoka,
               fontSize: 18,
               fontWeight: 600,
@@ -175,9 +175,9 @@ const Login = () => {
               ...resetButton,
               height: 48,
               borderRadius: 16,
-              border: "2px solid #3A2A70",
+              border: "2px solid var(--color-border)",
               background: "none",
-              color: "#DCCFFF",
+              color: "var(--color-text-soft)",
               fontSize: 15,
               fontWeight: 800,
               boxSizing: "border-box",
