@@ -1,3 +1,10 @@
+import { useState } from "react";
+import fox1 from "./1.svg";
+import fox2 from "./2.svg";
+import fox3 from "./3.svg";
+import fox4 from "./4.svg";
+
+const FOXES = [fox1, fox2, fox3, fox4];
 export const ACCENT = "#FF8CC0";
 // eslint-disable-next-line react-refresh/only-export-components
 export const BADGES = [
@@ -12,31 +19,20 @@ export const BADGES = [
   { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
 ];
 
-export const Fox = () => (
-  <svg width="92" height="100" viewBox="0 0 120 130" aria-hidden="true" style={{ position: "relative", flexShrink: 0 }}>
-    <polygon points="20,10 46,36 16,50" fill="#E8602C" />
-    <polygon points="100,10 74,36 104,50" fill="#E8602C" />
-    <polygon points="24,22 40,36 22,44" fill="#FF8FB8" />
-    <polygon points="96,22 80,36 98,44" fill="#FF8FB8" />
-    <polygon points="60,68 16,50 46,36" fill="#FF8A4C" />
-    <polygon points="60,68 46,36 74,36" fill="#FF9F63" />
-    <polygon points="60,68 74,36 104,50" fill="#FF7A3D" />
-    <polygon points="60,68 104,50 100,84" fill="#F0672F" />
-    <polygon points="60,68 100,84 60,110" fill="#FFE6D2" />
-    <polygon points="60,68 60,110 20,84" fill="#FFD4B8" />
-    <polygon points="60,68 20,84 16,50" fill="#F26F36" />
-    <ellipse cx="42" cy="66" rx="6" ry="7.5" fill="#2A1550" />
-    <ellipse cx="78" cy="66" rx="6" ry="7.5" fill="#2A1550" />
-    <circle cx="44" cy="63" r="2" fill="#FFFFFF" />
-    <circle cx="80" cy="63" r="2" fill="#FFFFFF" />
-    <ellipse cx="30" cy="84" rx="5" ry="3" fill="#FF8FB8" opacity="0.7" />
-    <ellipse cx="90" cy="84" rx="5" ry="3" fill="#FF8FB8" opacity="0.7" />
-    <polygon points="53,86 67,86 60,95" fill="#2A1550" />
-    <path d="M52 98 Q60 104 68 98" stroke="#2A1550" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-    <polygon points="34,108 86,108 60,128" fill="#FF5FA2" />
-    <polygon points="60,108 86,108 60,128" fill="#E8478F" />
-  </svg>
-);
+export const Fox = ({ width = 92, height = 100 }) => {
+  // pick once per mount so re-renders don't swap the image
+  const [src] = useState(() => FOXES[Math.floor(Math.random() * FOXES.length)]);
+  return (
+  <img
+    src={src}
+    alt=""
+    aria-hidden="true"
+    width={width}
+    height={height}
+    style={{ position: "relative", flexShrink: 0, objectFit: "contain" }}
+  />
+  );
+};
 
 const PIECES = [
   { points: "40,70 58,100 22,100", fill: "#FF8CC0" },
