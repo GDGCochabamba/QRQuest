@@ -39,5 +39,7 @@ const addToField = (userId, field, value) => {
 
 export const getBadges = (userId) => readField(userId, "Badges");
 export const addBadge = (userId, badgeId) => addToField(userId, "Badges", badgeId);
+export const getMeals = (userId) => readField(userId, "Meals");
+export const addMeal = (userId, mealId) => addToField(userId, "Meals", mealId);
 export const getRedeemed = (userId) => readField(userId, "Redeemed");
 export const redeemReward = (userId, rewardId) => addToField(userId, "Redeemed", rewardId);

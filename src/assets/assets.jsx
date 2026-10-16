@@ -28,6 +28,10 @@ export const BADGES = [
   { id: "garden", name: "Jardín", palette: "mint", glyph: "circle" },
   { id: "rooftop", name: "Azotea", palette: "blue", glyph: "diamond" },
   { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
+  // Secrets Badges
+  { id: "quantum_core", name: "Núcleo Cuántico", palette: "violet", glyph: "star", secret: true },
+  { id: "cyber_fox", name: "Zorro Cibernético", palette: "blue", glyph: "diamond", secret: true },
+  { id: "master_key", name: "Llave Maestra", palette: "amber", glyph: "circle", secret: true },
 ];
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -104,6 +108,7 @@ export const FACE_POINTS = [
   "46,44 12,72 12,28",
   "46,44 12,28 50,6",
 ];
+
 export const Glyph = ({ type }) => {
   const p = { fill: "#FFFFFF", opacity: 0.94 };
   switch (type) {
@@ -119,3 +124,12 @@ export const Glyph = ({ type }) => {
       return <polygon points="50,34 66,64 34,64" {...p} />;
   }
 };
+
+export const MEALS = [
+  { id: "viernes_merienda", day: "Viernes", name: "Merienda" },
+  { id: "sabado_desayuno", day: "Sábado", name: "Desayuno" },
+  { id: "sabado_almuerzo", day: "Sábado", name: "Almuerzo" },
+  { id: "sabado_cena", day: "Sábado", name: "Cena" },
+  { id: "domingo_desayuno", day: "Domingo", name: "Desayuno" },
+  { id: "domingo_almuerzo", day: "Domingo", name: "Almuerzo" },
+];
