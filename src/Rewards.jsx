@@ -6,7 +6,6 @@ import { getBadges, getRedeemed, redeemReward } from "./storage";
 const fredoka = { fontFamily: "'Fredoka', sans-serif" };
 const resetButton = { background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" };
 
-// Badge ids earned by this user; unknown or repeated ids don't count
 const getEarnedBadges = (username) => [...new Set(getBadges(username))].filter((id) => BADGES.some((b) => b.id === id));
 
 const LockIcon = () => (
@@ -14,18 +13,6 @@ const LockIcon = () => (
     <rect x="5" y="11" width="14" height="10" rx="2.5" fill="var(--color-lock)" />
     <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="var(--color-lock)" strokeWidth="2.4" />
   </svg>
-);
-
-const NavButton = ({ label, color, onClick, children }) => (
-  <button
-    onClick={onClick}
-    style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 64, minHeight: 44, color }}
-  >
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
-      {children}
-    </svg>
-    <span style={{ fontSize: 12, fontWeight: 800 }}>{label}</span>
-  </button>
 );
 
 const Rewards = () => {
@@ -36,9 +23,9 @@ const Rewards = () => {
   const total = BADGES.length;
 
   const [redeemed, setRedeemed] = useState(() => (username ? getRedeemed(username) : []));
-  const [confirming, setConfirming] = useState(null); // reward being confirmed
+  const [confirming, setConfirming] = useState(null);
   const [actionError, setActionError] = useState("");
-  const triggerRef = useRef(null); // "Canjear" button to return focus to
+  const triggerRef = useRef(null);
 
   useEffect(() => {
     if (!username) navigate("/login", { replace: true });
@@ -47,10 +34,8 @@ const Rewards = () => {
   const handleRedeem = () => {
     if (!confirming) return;
     try {
-      // Re-read first: it may have been redeemed in another tab
       const current = getRedeemed(username);
       if (current.includes(confirming.id)) {
-        // Do not look like a fresh redeem: the prize was already handed out
         setRedeemed(current);
         setActionError("Este premio ya fue canjeado.");
         return;
@@ -90,51 +75,48 @@ const Rewards = () => {
           </div>
         </div>
 
-        {(
-          <div style={{ padding: "20px 20px 0", display: "flex", flexDirection: "column", gap: 14 }}>
-            {REWARDS.map((reward) => {
-              const isRedeemed = redeemed.includes(reward.id);
-              const unlocked = count >= reward.required;
-              const missing = reward.required - count;
-              return (
-                <div
-                  key={reward.id}
-                  style={{ background: "var(--color-surface)", borderRadius: 22, padding: "16px 18px", opacity: unlocked || isRedeemed ? 1 : 0.85 }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
-                    <div style={{ ...fredoka, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>{reward.title}</div>
-                    {!unlocked && !isRedeemed && <LockIcon />}
-                  </div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-muted)", marginTop: 4, lineHeight: 1.35 }}>
-                    {reward.description}
-                  </div>
-                  <div style={{ marginTop: 12 }}>
-                    {isRedeemed ? (
-                      <span style={{ fontSize: 14, fontWeight: 800, color: "var(--color-gold)" }}>Canjeada ✓</span>
-                    ) : unlocked ? (
-                      <button
-                        onClick={(e) => {
-                          triggerRef.current = e.currentTarget;
-                          setConfirming(reward);
-                        }}
-                        style={{ ...resetButton, height: 44, padding: "0 20px", borderRadius: 14, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 16, fontWeight: 600 }}
-                      >
-                        Canjear
-                      </button>
-                    ) : (
-                      <span style={{ fontSize: 14, fontWeight: 800, color: "var(--color-text-dim)" }}>
-                        Te {missing === 1 ? "falta 1 insignia" : `faltan ${missing} insignias`}
-                      </span>
-                    )}
-                  </div>
+        <div style={{ padding: "20px 20px 0", display: "flex", flexDirection: "column", gap: 14 }}>
+          {REWARDS.map((reward) => {
+            const isRedeemed = redeemed.includes(reward.id);
+            const unlocked = count >= reward.required;
+            const missing = reward.required - count;
+            return (
+              <div
+                key={reward.id}
+                style={{ background: "var(--color-surface)", borderRadius: 22, padding: "16px 18px", opacity: unlocked || isRedeemed ? 1 : 0.85 }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                  <div style={{ ...fredoka, fontSize: 20, fontWeight: 600, lineHeight: 1.2 }}>{reward.title}</div>
+                  {!unlocked && !isRedeemed && <LockIcon />}
                 </div>
-              );
-            })}
-          </div>
-        )}
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-muted)", marginTop: 4, lineHeight: 1.35 }}>
+                  {reward.description}
+                </div>
+                <div style={{ marginTop: 12 }}>
+                  {isRedeemed ? (
+                    <span style={{ fontSize: 14, fontWeight: 800, color: "var(--color-gold)" }}>Canjeada ✓</span>
+                  ) : unlocked ? (
+                    <button
+                      onClick={(e) => {
+                        triggerRef.current = e.currentTarget;
+                        setConfirming(reward);
+                      }}
+                      style={{ ...resetButton, height: 44, padding: "0 20px", borderRadius: 14, background: ACCENT, color: "var(--color-on-accent)", ...fredoka, fontSize: 16, fontWeight: 600 }}
+                    >
+                      Canjear
+                    </button>
+                  ) : (
+                    <span style={{ fontSize: 14, fontWeight: 800, color: "var(--color-text-dim)" }}>
+                      Te {missing === 1 ? "falta 1 insignia" : `faltan ${missing} insignias`}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Confirm dialog */}
       {confirming && (
         <div
           role="dialog"
@@ -169,31 +151,59 @@ const Rewards = () => {
         </div>
       )}
 
-      {/* Bottom nav */}
-      <div style={{ position: "fixed", left: 0, right: 0, bottom: 0, background: "var(--color-surface-deep)", borderTop: "1px solid var(--color-surface)" }}>
-        <div style={{ maxWidth: 430, margin: "0 auto", height: 88, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "space-around", padding: "0 24px" }}>
-          <NavButton label="Insignias" color="var(--color-text-dim)" onClick={() => navigate("/home")}>
-            <polygon points="12,2.5 20,7 20,17 12,21.5 4,17 4,7" />
-          </NavButton>
-
-          <button
-            onClick={() => navigate("/scan")}
-            aria-label="Escanear un código QR"
-            style={{ ...resetButton, width: 68, height: 68, marginTop: -34, borderRadius: 24, background: ACCENT, border: "5px solid var(--color-bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-on-accent)", boxSizing: "border-box" }}
-          >
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="7" height="7" rx="1.5" />
-              <rect x="14" y="3" width="7" height="7" rx="1.5" />
-              <rect x="3" y="14" width="7" height="7" rx="1.5" />
-              <path d="M14 14h3v3h-3zM19 19h2v2h-2zM19 14h2v2h-2z" />
+      <div style={{ position: "fixed", left: 0, right: 0, bottom: 0, background: "var(--color-surface-deep)", borderTop: "1px solid var(--color-surface)", zIndex: 50 }}>
+        <div style={{ maxWidth: 430, margin: "0 auto", height: 76, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "space-around", padding: "0 16px" }}>
+          <button onClick={() => navigate("/almuerzos")} style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 70, color: "var(--color-text-dim)" }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" />
             </svg>
+            <span style={{ fontSize: 12, fontWeight: 800 }}>Almuerzos</span>
           </button>
 
-          <NavButton label="Recompensas" color={ACCENT}>
-            <path d="M4 9h16v11H4zM2 5h20v4H2zM12 5v15" />
-          </NavButton>
+          <button onClick={() => navigate("/home")} style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 70, color: "var(--color-text-dim)" }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="12,2.5 20,7 20,17 12,21.5 4,17 4,7" />
+            </svg>
+            <span style={{ fontSize: 13, fontWeight: 800 }}>Insignias</span>
+          </button>
+
+          <button onClick={() => navigate("/rewards")} style={{ ...resetButton, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 70, color: ACCENT }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 9h16v11H4zM2 5h20v4H2zM12 5v15" />
+            </svg>
+            <span style={{ fontSize: 12, fontWeight: 800 }}>Premios</span>
+          </button>
         </div>
       </div>
+
+      <button
+        onClick={() => navigate("/scan")}
+        aria-label="Escanear un código QR"
+        style={{
+          position: "fixed",
+          right: 20,
+          bottom: 92,
+          width: 60,
+          height: 60,
+          borderRadius: "50%",
+          background: ACCENT,
+          border: "4px solid var(--color-bg)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "var(--color-on-accent)",
+          boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
+          cursor: "pointer",
+          zIndex: 60,
+        }}
+      >
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="3" width="7" height="7" rx="1.5" />
+          <rect x="3" y="14" width="7" height="7" rx="1.5" />
+          <path d="M14 14h3v3h-3zM19 19h2v2h-2zM19 14h2v2h-2z" />
+        </svg>
+      </button>
     </div>
   );
 };
