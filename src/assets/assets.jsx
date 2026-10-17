@@ -23,8 +23,8 @@ export const BADGES = [
   { id: "early_bird", name: "Madrugador", palette: "amber", glyph: "circle" },
   { id: "cafeteria", name: "Cafetería", palette: "blue", glyph: "square" },
   { id: "night_owl", name: "Búho nocturno", palette: "violet", glyph: "diamond" },
-  { id: "campus_run", name: "Carrera del campus", palette: "mint", glyph: "triangle" },
-  { id: "library", name: "Biblioteca", palette: "pink", glyph: "square" },
+  { id: "campus_run", name: "campus", palette: "mint", glyph: "triangle" },
+  { id: "BMO", name: "BMO", palette: "pink", glyph: "square" },
   { id: "garden", name: "Jardín", palette: "mint", glyph: "circle" },
   { id: "rooftop", name: "Azotea", palette: "blue", glyph: "diamond" },
   { id: "secret", name: "Secreto", palette: "amber", glyph: "star" },
@@ -38,7 +38,7 @@ export const BADGES = [
 export const REWARDS = [
   { id: "reward_2", title: "Sticker", description: "Un sticker de QRQuest por reunir 2 insignias.", required: 2 },
   { id: "reward_5", title: "Lapicero", description: "Un lapicero de WGJ por reunir 5 insignias.", required: 5 },
-  { id: "reward_all", title: "Llavero", description: "Un llavero de WGJ por encontrar todas las insignias.", required: BADGES.length },
+  { id: "reward_all", title: "Porta celular", description: "Un porta celular de WGJ por encontrar todas las insignias.", required: BADGES.length },
 ];
 
 export const Fox = ({ width = 92, height = 100 }) => {
